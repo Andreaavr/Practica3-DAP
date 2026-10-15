@@ -1,0 +1,84 @@
+@startuml
+abstract class divconq.framework.DivConqTemplate {
++ Solution solve(Problem)
+# {abstract}boolean isSimple(Problem)
+# {abstract}Solution simplySolve(Problem)
+# {abstract}Problem[] decompose(Problem)
+# {abstract}Solution combine(Problem,Solution[])
+}
+
+class divconq.mergesort.SortProblem {
+- Slice<T> slice
++ {static} SortProblem<T> of(List<? extends T>)
++ Slice<T> slice()
+}
+
+
+class divconq.minmax.MinMaxSolution {
+- T min
+- T max
++ T max()
++ T min()
+}
+
+
+class divconq.mergesort.SortSolution {
+- List<T> sorted
++ List<T> sorted()
+}
+
+
+class divconq.minmax.MinMax {
+- Comparator<? super T> comparator
+- MinMaxProblem<T> problem(Problem)
+- MinMaxSolution<T> solution(Solution)
+# boolean isSimple(Problem)
+# Solution simplySolve(Problem)
+# Problem[] decompose(Problem)
+# Solution combine(Problem,Solution[])
+}
+
+
+class divconq.minmax.MinMaxProblem {
+- Slice<T> slice
++ {static} MinMaxProblem<T> of(List<? extends T>)
++ Slice<T> slice()
+}
+
+
+interface divconq.framework.Solution {
+}
+class divconq.Main {
++ {static} void main(String[])
+}
+
+class divconq.mergesort.MergeSort {
+- Comparator<? super T> comparator
+- SortProblem<T> problem(Problem)
+- SortSolution<T> solution(Solution)
+# boolean isSimple(Problem)
+# Solution simplySolve(Problem)
+# Problem[] decompose(Problem)
+# Solution combine(Problem,Solution[])
+}
+
+
+class divconq.common.Slice {
+- List<T> source
+- int from
+- int to
++ {static} Slice<T> of(List<? extends T>)
++ int size()
++ boolean isEmpty()
++ T get(int)
++ List<Slice<T>> splitInHalf()
+}
+
+
+interface divconq.framework.Problem {
+}
+
+
+divconq.framework.DivConqTemplate <|-- divconq.minmax.MinMax
+divconq.framework.DivConqTemplate <|-- divconq.mergesort.MergeSort
+@enduml

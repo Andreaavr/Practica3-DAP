@@ -1,0 +1,31 @@
+classDiagram
+    direction TB
+    class Problem { <<interface>> }
+    class Solution { <<interface>> }
+    class DivConqTemplate {
+        <<abstract>>
+        +solve(Problem) Solution «final»
+        #isSimple(Problem) boolean
+        #simplySolve(Problem) Solution
+        #decompose(Problem) Problem[]
+        #combine(Problem, Solution[]) Solution
+    }
+    class Slice~T~ { <<final>> +of(List) +size() +get(int) +splitInHalf() }
+    class SortProblem~T~ { <<record>> Slice slice }
+    class SortSolution~T~ { <<record>> List sorted }
+    class MergeSort~T~ { -Comparator comparator }
+    class MinMaxProblem~T~ { <<record>> Slice slice }
+    class MinMaxSolution~T~ { <<record>> T min, T max }
+    class MinMax~T~ { -Comparator comparator }
+    class Main
+    DivConqTemplate <|-- MergeSort
+    DivConqTemplate <|-- MinMax
+    Problem <|.. SortProblem
+    Solution <|.. SortSolution
+    Problem <|.. MinMaxProblem
+    Solution <|.. MinMaxSolution
+    SortProblem o-- Slice
+    MinMaxProblem o-- Slice
+    DivConqTemplate ..> Problem
+    DivConqTemplate ..> Solution
+    Main ..> DivConqTemplate
